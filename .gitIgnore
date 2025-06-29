@@ -1,0 +1,17 @@
+# Node modules
+**/node_modules
+**/dist
+**/.env
+**/.DS_Store
+
+# Logs
+logs
+*.log
+
+# Docker
+**/tmp
+**/*.pid
+
+# IDEs
+.vscode
+.idea
