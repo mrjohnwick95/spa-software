@@ -1,0 +1,11 @@
+[
+  {
+    "insertOne": {
+      "document": {
+        "usuario": "juan",
+        "observaciones": "Primera cita del año",
+        "fecha": "2025-06-29T14:00:00Z"
+      }
+    }
+  }
+]

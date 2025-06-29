@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: spa-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - PG_HOST=db_postgres
+      - PG_PORT=5432
+      - PG_USER=spa
+      - PG_PASSWORD=spa123
+      - PG_DATABASE=spadb
+      - MONGO_URI=mongodb://db_mongo:27017/spamongo
+    depends_on:
+      - db_postgres
+      - db_mongo
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    container_name: spa-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+
+  db_postgres:
+    image: postgres:15
+    container_name: spa-postgres
+    environment:
+      POSTGRES_USER: spa
+      POSTGRES_PASSWORD: spa123
+      POSTGRES_DB: spadb
+    volumes:
+      - ./docs/respaldo_bases/init_postgres.sql:/docker-entrypoint-initdb.d/init_postgres.sql
+    ports:
+      - "5432:5432"
+
+  db_mongo:
+    image: mongo:6
+    container_name: spa-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./docs/respaldo_bases/init_mongo.json:/docker-entrypoint-initdb.d/init_mongo.json

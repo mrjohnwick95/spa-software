@@ -4,10 +4,13 @@ require('dotenv').config();
 
 const connectPostgres = require('./config/postgres');
 const connectMongo = require('./config/mongo');
+const usuariosRoutes = require('./routes/usuarios');
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/api/usuarios', usuariosRoutes);
 
 connectPostgres();
 connectMongo();
